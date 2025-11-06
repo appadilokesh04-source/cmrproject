@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<title></title>
+
+<body>
+    <div style="border: solid;align-items: center;">
+        <form action="/submit_help_request" method="POST">
+
+            <label>Category:</label>
+            <select name="category">
+                <option>Travel</option>
+                <option>Healthcare</option>
+                <option>Event Assistance</option>
+                <option>Emergency</option>
+                <option>Other</option>
+            </select><br><br>
+
+            <label>City:</label>
+            <input type="text" name="city" required><br><br>
+
+            <label>Description:</label>
+            <textarea name="description" required></textarea><br><br>
+
+            <button type="submit">Submit Request</button>
+
+            {% if message %}
+            <p style="color:green;">{{ message }}</p>
+            {% endif %}
+        </form>
+    </div>
+</body>

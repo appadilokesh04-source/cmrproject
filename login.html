@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title><Smart App | Login PAge></title>
+
+    </head>
+    <body>
+        <h1>Smart App</h1>
+
+        <h3>Login Here</h3>
+        {%if message%}
+        <p style="color: black;"{{message}}>
+        {% endif %}
+        <form action="/login_page" method="post">
+            <label>Email</label><br>
+            <input type="'email" Name="User_email"> <br>
+            <label>Password</label><br>
+            <input type="password"><br><br>
+            <input type="Submit" value="Login">
+
+        </form>
+        <p>Not a member?<a href="/register">Register Here</a></p>
+
+
+    </body>
+</html>
+</html>
