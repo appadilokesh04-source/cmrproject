@@ -60,6 +60,10 @@ def re_register():
 def PwD_Dashboard():
     return render_template('PwD_Dashboard.html')
 
+@app.route('/Schemes',methods=['GET'])
+def schemes():
+    return render_template('schemes.html')
+
 @app.route('/Volunteer_Dashboard',methods=['GET'])
 def Volunteer_Dashboard():
     return render_template('Volunteer_Dashboard.html')
@@ -72,12 +76,20 @@ def NGO_Dashboard():
 def help_request_page():
     return render_template('help_request.html')
 
-@app.route('/profile_page',methods=['POST'])
+@app.route('/profile_page',methods=['GET'])
 def profile_page():
     name='x'
     return render_template('profile.html',name=name)
 
+@app.route('/Verify_Volunteer',methods=['GET'])
+def ver_vol():
+    name='x'
+    return render_template('ver_vol.html',name=name)
+
+@app.route('/don',methods=['GET'])
+def donation():
+    name='x'
+    return render_template('donation.html',name=name)
 
 if __name__=='__main__':
-
     app.run(debug=True)
