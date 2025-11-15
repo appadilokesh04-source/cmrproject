@@ -1,31 +1,44 @@
-import json
+import json, os, bcrypt
 
 class Database:
     def __init__(self):
-        self.file = 'users.json'
+        if not os.path.exists("users.json"):
+            with open("users.json", "w") as f:
+                json.dump({}, f)
 
     def insert(self, name, email, password, user_type):
-        with open(self.file, 'r') as rf:
-            users = json.load(rf)
+        with open("users.json", "r") as f:
+            users = json.load(f)
 
         if email in users:
-            return 0
+            return False
+
+        # HASH PASSWORD HERE ✔
+        hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
         users[email] = {
             "name": name,
-            "password": password,
-            "type": user_type
+            "password": hashed,   # store HASHED password
+            "user_type": user_type
         }
 
-        with open(self.file, 'w') as wf:
-            json.dump(users, wf, indent=4)
+        with open("users.json", "w") as f:
+            json.dump(users, f, indent=4)
 
-        return 1
+        return True
 
     def search(self, email, password):
-        with open(self.file, 'r') as rf:
-            users = json.load(rf)
+        with open("users.json", "r") as f:
+            users = json.load(f)
 
-        if email in users and users[email]["password"] == password:
-            return users[email]["type"]  # return role (pwd/Volunteer/Ngo)
-        return 0
+        if email not in users:
+            return False
+
+        stored_hash = users[email]["password"].encode()
+        print("DEBUG HASH:",users[email]["password"])
+        stored_hash=stored_hash.encode()
+        # CHECK HASH HERE ✔
+        if bcrypt.checkpw(password.encode(), stored_hash):
+            return users[email]["user_type"]
+        else:
+            return False
