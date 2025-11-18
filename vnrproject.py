@@ -3,7 +3,7 @@ from flask import Flask,render_template,request,redirect,session,url_for
 from db import Database
 app=Flask(__name__)  #Create Flask app instance
 db=Database()  #Create Database instance
-app.secret_key='lokesh i wanna **** ur ***'
+app.secret_key='Flask'
 @app.route('/') #when app is initialized, this will be called
 def index():   
     return render_template('Home.html')
@@ -93,3 +93,4 @@ def donation():
 
 if __name__=='__main__':
     app.run(debug=True)
+
