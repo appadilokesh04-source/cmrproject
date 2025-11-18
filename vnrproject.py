@@ -1,4 +1,3 @@
-import urllib.request
 from flask import Flask,render_template,request,redirect,session,url_for
 from db import Database
 app=Flask(__name__)  #Create Flask app instance
@@ -20,7 +19,6 @@ def perform_registration():
     email=request.form.get('user_email')
     password=request.form.get('user_password')
     user_type=session.get('user_type')
-    print(name,email,password,user_type)
     response=db.insert(name,email,password,user_type)
     if response:
         return redirect(url_for('login_page'))
@@ -32,7 +30,6 @@ def perform_registration():
 def login_page():
     message1=request.args.get('message')
     if message1:
-        print('in if')
         return render_template('Login.html',message=message1)
     return render_template('Login.html')
 
@@ -40,9 +37,7 @@ def login_page():
 def perform_login():
     email=request.form.get('User_email')
     password=request.form.get('User_password')
-    print(email,password)
     response=db.search(email,password)
-    print('response',response)
     if response:
         user_type=session.get('user_type')
         s=(user_type+'_Dashboard')
@@ -93,4 +88,5 @@ def donation():
 
 if __name__=='__main__':
     app.run(debug=True)
+
 
