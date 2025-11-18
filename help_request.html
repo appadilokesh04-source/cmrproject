@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<title>Help Request</title>
+
+<body>
+    <div style="border: solid; align-items: center;">
+        <form id="helpForm" action="/help_request" method="POST">
+
+            <label>Category:</label>
+            <select name="category" id="categorySelect" required>
+                <option value="" disabled selected>Select Category</option>
+                <option>Travel</option>
+                <option>Healthcare</option>
+                <option>Event Assistance</option>
+                <option>Emergency</option>
+                <option>Other</option>
+            </select><br><br>
+
+            <label>City:</label>
+            <input type="text" name="city" required><br><br>
+
+            <label>Description:</label>
+            <textarea name="description" required></textarea><br><br>
+
+            <button type="submit">Submit Request</button>
+
+            {% if message %}
+            <p style="color:green;">{{ message }}</p>
+            {% endif %}
+        </form>
+    </div>
+
+    <!-- Desktop Notification Script -->
+    <script>
+        // Ask notification permission on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+        });
+
+        // Trigger desktop notification after form submit
+        document.getElementById("helpForm").addEventListener("submit", function (event) {
+            // Allows form to submit normally to server
+            const category = document.getElementById("categorySelect").value;
+
+            // Show desktop notification
+            new Notification("Help Request Submitted", {
+                body: `Category: ${category} has been submitted.`,
+                icon: "https://cdn-icons-png.flaticon.com/512/1827/1827370.png"
+            });
+        });
+    </script>
+</body>
+</html>
